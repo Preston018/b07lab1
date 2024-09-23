@@ -14,6 +14,7 @@ public class Polynomial {
 	
 	public Polynomial(double[] A) {
 		int len = A.length;
+		
 		coefficients = new double[len];
 		
 		for (int i = 0; i < len; i++)
@@ -28,18 +29,23 @@ public class Polynomial {
 		
 		if (lenA >= lenB) {
 			
-			for (int i = 0; i < lenB; i++) {
-				coefficients[i] += A.coefficients[i];
-			}
 			Polynomial result = new Polynomial(coefficients);
+			
+			for (int i = 0; i < lenB; i++) {
+				result.coefficients[i] += A.coefficients[i];
+			}
+			
 			return result;
 		}
 		else {
+			
+			Polynomial result = new Polynomial(A.coefficients);
+			
 			for (int i = 0; i < lenA; i++) {
-				A.coefficients[i] += coefficients[i];
+				result.coefficients[i] += coefficients[i];
 			}
 			
-			return A;
+			return result;
 		}
 	}
 	
