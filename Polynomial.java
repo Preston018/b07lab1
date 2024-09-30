@@ -64,11 +64,9 @@ public class Polynomial {
 	        return new Polynomial(this.coefficients, this.exponents);
 	    }
 	    
-	    // Maximum possible size of result is lenA + lenB
 	    double[] rC = new double[lenA + lenB];
 	    int[] rE = new int[lenA + lenB];
 	    
-	    // Copy terms from this polynomial to the result
 	    int index = 0;
 	    for (int i = 0; i < lenA; i++) {
 	        rC[index] = this.coefficients[i];
@@ -76,18 +74,15 @@ public class Polynomial {
 	        index++;
 	    }
 	    
-	    // Add terms from Polynomial B
 	    for (int i = 0; i < lenB; i++) {
 	        boolean found = false;
 	        for (int j = 0; j < lenA; j++) {
 	            if (this.exponents[j] == B.exponents[i]) {
-	                // If exponents match, add the coefficients
 	                rC[j] += B.coefficients[i];
 	                found = true;
 	                break;
 	            }
 	        }
-	        // If no matching exponent is found, add a new term
 	        if (!found) {
 	            rC[index] = B.coefficients[i];
 	            rE[index] = B.exponents[i];
@@ -95,11 +90,9 @@ public class Polynomial {
 	        }
 	    }
 	    
-	    // Trimming the result to fit the actual number of terms
 	    double[] trimmedC = Arrays.copyOf(rC, index);
 	    int[] trimmedE = Arrays.copyOf(rE, index);
 	    
-	    // Return the new polynomial
 	    return new Polynomial(trimmedC, trimmedE);
 	}
 
