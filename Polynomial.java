@@ -251,19 +251,22 @@ public class Polynomial {
 			
 			String[] numArray = text.split("(?=[-])|[+x]");
 			int numLen = numArray.length;
+			int rInd = 0;
 			
 			for (int i = 0; i < numLen; i += 2) {
 				
 				if ((int)(i/2.0) == indConstant) {
 					
-					rC[i] = Double.parseDouble(numArray[i]);
-					rE[i+1] = 0;
+					rC[rInd] = Double.parseDouble(numArray[i]);
+					rE[rInd] = 0;
 					i--;
+					rInd++;
 					
 				} else {
 					
-					rC[i] = Double.parseDouble(numArray[i]);
-					rE[i+1] = Integer.parseInt(numArray[i+1]);
+					rC[rInd] = Double.parseDouble(numArray[i]);
+					rE[rInd] = Integer.parseInt(numArray[i+1]);
+					rInd++;
 				}
 				
 			}
@@ -284,18 +287,33 @@ public class Polynomial {
 		 
 			 for (int i = 0; i < exponents.length; i++) {
 				 
-				 if (coefficients[i] > 0 && i != 0) {
+				 if (coefficients[i] == 0) {
+					 
+					 continue;
+					 
+				 } else if (exponents[i] == 0 && i != 0 && coefficients[i] > 0) {
+					 
+					 output.write("+" + coefficients[i]);
+					 
+				 } else if (exponents[i] == 0) {
+					 
+					 output.write("" + coefficients[i]);
+					 
+				 } else if (coefficients[i] > 0 && i != 0) {
 					 
 					 output.write("+" + coefficients[i] + "x");
-					 output.write("" + exponents[i]);
 					 
 				 } else {
 					 
 					 output.write("" + coefficients[i] + "x");
+					 
+				 } if (exponents[i] > 1) {
+					 
 					 output.write("" + exponents[i]);
 					 
 				 }
 			 }
+			 
 		 } catch (IOException e) {
 		        System.err.println("Error writing to file: " + e.getMessage());
 		 }
